@@ -21,10 +21,55 @@ func (m Image) String() string {
 	return Stringify(m)
 }
 
+const ImageMedia MediaType = "image"
+const VideoMedia MediaType = "video"
+const MultipleImageMedia MediaType = "multiple_images"
+const MultipleVideoMedia MediaType = "multiple_videos"
+const MultipleMixedMedia MediaType = "multiple_mixed"
+const ImageMediaItem MediaItemType = "image"
+const VideoMediaItem MediaItemType = "video"
+
+type MediaType string
+
+func (m MediaType) String() string {
+	return string(m)
+}
+
+type MediaItemType string
+
+func (m MediaItemType) String() string {
+	return string(m)
+}
+
 // Media represents the media info
 type Media struct {
-	Images    map[string]*Image `json:"images"`
-	MediaType *string           `json:"media_type"`
+	MediaItem
+	Items     []*MediaItem `json:"items"`
+	MediaType MediaType    `json:"media_type"`
+}
+
+// MediaItem represents the media item info
+type MediaItem struct {
+	ItemType MediaItemType `json:"item_type"`
+	ImageItem
+	VideoItem
+}
+
+// ImageItem represents the image item info
+type ImageItem struct {
+	Title       *string           `json:"title"`
+	Description *string           `json:"description"`
+	Link        *string           `json:"link"`
+	Images      map[string]*Image `json:"images"`
+}
+
+// VideoItem represents the video item info
+type VideoItem struct {
+	CoverImageUrl string  `json:"cover_image_url"`
+	VideoURL      *string `json:"video_url"`
+	Duration      float64 `json:"duration"`
+	Height        int     `json:"height"`
+	Width         int     `json:"width"`
 }
 
 func (m Media) String() string {
