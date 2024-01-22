@@ -23,7 +23,7 @@ func (bc *BCSuite) TestCreatePin() {
 
 	pin, _ := bc.Pin.Pin.CreatePin(CreatePinOpts{BoardID: "123456", MediaSource: CreatePinMediaSourceOpts{SourceType: "image_url", Url: "https://xxx.com/image.png"}})
 	bc.Equal(*pin.BoardID, "1022106146619699845")
-	bc.Equal(*pin.Media.MediaType, "image")
+	bc.Equal(pin.Media.MediaType.String(), "image")
 	bc.Equal(*pin.Media.Images["150x150"].Width, 150)
 }
 
@@ -49,7 +49,7 @@ func (bc *BCSuite) TestGetPin() {
 
 	pin, _ := bc.Pin.Pin.GetPin(pinID, "")
 	bc.Equal(*pin.BoardID, "1022106146619699845")
-	bc.Equal(*pin.Media.MediaType, "image")
+	bc.Equal(pin.Media.MediaType.String(), "image")
 
 	pin, _ = bc.Pin.Pin.GetPin(pinID, "123456")
 	bc.Equal(*pin.BoardID, "1022106146619699845")
