@@ -22,7 +22,7 @@ func (bc *BCSuite) TestListBoards() {
 	)
 
 	boards, _ := bc.Pin.Board.ListBoards(ListBoardOpts{})
-	bc.Equal(*boards.Items[0].Privacy, "PUBLIC")
+	bc.Equal(boards.Items[0].Privacy, PublicBoard)
 	bc.Nil(boards.Bookmark)
 }
 
@@ -47,7 +47,7 @@ func (bc *BCSuite) TestGetBoard() {
 	)
 
 	board, _ := bc.Pin.Board.GetBoard(boardID)
-	bc.Equal(*board.Privacy, "PUBLIC")
+	bc.Equal(board.Privacy, PublicBoard)
 	bc.Equal(*board.ID, boardID)
 }
 

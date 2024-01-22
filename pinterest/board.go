@@ -1,5 +1,7 @@
 package pinterest
 
+import "time"
+
 /*
 	Boards API
 */
@@ -8,6 +10,16 @@ type BoardResource Resource
 
 func newBoardResource(cli *Client) *BoardResource {
 	return &BoardResource{Cli: cli}
+}
+
+// BoardMedia represents the media for board
+type BoardMedia struct {
+	ImageCoverURL    *string `json:"image_cover_url"`
+	PinThumbnailURLs *string `json:"pin_thumbnail_urls"`
+}
+
+func (b BoardMedia) String() string {
+	return Stringify(b)
 }
 
 // BoardOwner represents the owner for board
@@ -19,14 +31,44 @@ func (b BoardOwner) String() string {
 	return Stringify(b)
 }
 
+type BoardPrivacy string
+
+func (b BoardPrivacy) Public() bool {
+	return b == PublicBoard
+}
+
+func (b BoardPrivacy) Protected() bool {
+	return b == ProtectedBoard
+}
+
+func (b BoardPrivacy) Secret() bool {
+	return b == SecretBoard
+}
+
+func (b BoardPrivacy) String() string {
+	return string(b)
+}
+
+const (
+	PublicBoard    BoardPrivacy = "PUBLIC"
+	ProtectedBoard BoardPrivacy = "PROTECTED"
+	SecretBoard    BoardPrivacy = "SECRET"
+)
+
 // Board represents the board info
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/get
 type Board struct {
-	ID          *string     `json:"id"`
-	Name        *string     `json:"name"`
-	Description *string     `json:"description"`
-	Owner       *BoardOwner `json:"owner"`
-	Privacy     *string     `json:"privacy"`
+	ID                  *string      `json:"id"`
+	CreatedAt           *time.Time   `json:"created_at"`
+	BoardPinsModifiedAt *time.Time   `json:"board_pins_modified_at"`
+	Name                *string      `json:"name"`
+	Description         *string      `json:"description"`
+	CollaboratorCount   *int         `json:"collaborator_count"`
+	PinCount            *int         `json:"pin_count"`
+	FollowerCount       *int         `json:"follower_count"`
+	Media               *BoardMedia  `json:"media"`
+	Owner               *BoardOwner  `json:"owner"`
+	Privacy             BoardPrivacy `json:"privacy"`
 }
 
 func (b Board) String() string {
@@ -46,7 +88,7 @@ func (b BoardsResponse) String() string {
 // ListBoardOpts represents the parameters for list boards
 type ListBoardOpts struct {
 	ListOptions
-	Privacy string `url:"privacy,omitempty"`
+	Privacy BoardPrivacy `url:"privacy,omitempty"`
 }
 
 // ListBoards Get a list of the boards owned by the "operation user_account" + group boards where this account is a collaborator
@@ -77,9 +119,9 @@ func (r *BoardResource) GetBoard(boardID string) (*Board, *APIError) {
 
 // CreateBoardOpts represents the parameters for create a board
 type CreateBoardOpts struct {
-	Name        string `json:"name"`
-	Description string `json:"description,omitempty"`
-	Privacy     string `json:"privacy,omitempty"`
+	Name        string       `json:"name"`
+	Description string       `json:"description,omitempty"`
+	Privacy     BoardPrivacy `json:"privacy,omitempty"`
 }
 
 // CreateBoard Create a board owned by the "operation user_account".
@@ -97,9 +139,9 @@ func (r *BoardResource) CreateBoard(args CreateBoardOpts) (*Board, *APIError) {
 
 // UpdateBoardOpts represents the parameters for update board
 type UpdateBoardOpts struct {
-	Name        string `json:"name,omitempty"`
-	Description string `json:"description,omitempty"`
-	Privacy     string `json:"privacy,omitempty"`
+	Name        string       `json:"name,omitempty"`
+	Description string       `json:"description,omitempty"`
+	Privacy     BoardPrivacy `json:"privacy,omitempty"`
 }
 
 // UpdateBoard Update a board owned by the "operating user_account".
