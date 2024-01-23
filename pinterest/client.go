@@ -1,8 +1,9 @@
 package pinterest
 
 import (
-	"github.com/go-resty/resty/v2"
 	"net/http"
+
+	"github.com/go-resty/resty/v2"
 )
 
 const (
@@ -23,6 +24,8 @@ type Client struct {
 	Pin         *PinResource
 	Media       *MediaResource
 	AdAccount   *AdAccountResource
+	Search      *SearchResource
+	Terms       *TermsResource
 }
 
 type Resource struct {
@@ -38,6 +41,8 @@ func NewClient(client *resty.Client) *Client {
 	c.Pin = newPinResource(c)
 	c.Media = newMediaResource(c)
 	c.AdAccount = newAdAccountResource(c)
+	c.Search = newSearchResource(c)
+	c.Terms = newTermsResource(c)
 	return c
 }
 
