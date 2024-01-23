@@ -10,13 +10,13 @@ func newTermsResource(cli *Client) *TermsResource {
 	return &TermsResource{Cli: cli}
 }
 
-// RelatedTermsResourceOptions specifies the optional parameters to the list related terms method
-type RelatedTermsResourceOptions struct {
+// RelatedTermsOpts specifies the optional parameters to the list related terms method
+type RelatedTermsOpts struct {
 	Terms []string `url:"terms,omitempty"`
 }
 
-// SuggestedTermsResourceOptions specifies the optional parameters to the list suggested terms method
-type SuggestedTermsResourceOptions struct {
+// SuggestedTermsOpts specifies the optional parameters to the list suggested terms method
+type SuggestedTermsOpts struct {
 	Term  string `url:"term,omitempty"`
 	Limit int    `url:"limit,omitempty"`
 }
@@ -44,7 +44,7 @@ func (r RelatedTermsResponse) String() string {
 
 // ListRelatedTerms Get a list of terms logically related to each input term.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/terms_related/list
-func (r *TermsResource) ListRelatedTerms(args RelatedTermsResourceOptions) (*RelatedTermsResponse, *APIError) {
+func (r *TermsResource) ListRelatedTerms(args RelatedTermsOpts) (*RelatedTermsResponse, *APIError) {
 	path := "/terms/related"
 
 	resp := new(RelatedTermsResponse)
@@ -57,7 +57,7 @@ func (r *TermsResource) ListRelatedTerms(args RelatedTermsResourceOptions) (*Rel
 
 // ListSuggestedTerms Get popular search terms that begin with your input term.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/terms_suggested/list
-func (r *TermsResource) ListSuggestedTerms(args SuggestedTermsResourceOptions) ([]string, *APIError) {
+func (r *TermsResource) ListSuggestedTerms(args SuggestedTermsOpts) ([]string, *APIError) {
 	path := "/terms/suggested"
 
 	resp := []string{}
