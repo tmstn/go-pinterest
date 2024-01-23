@@ -137,8 +137,7 @@ const (
 
 // ListPinsOptions specifies the optional parameters to the List Pins method
 type ListPinsOptions struct {
-	Bookmark      string            `url:"bookmark,omitempty"`
-	PageSize      int               `url:"page_size,omitempty"`
+	ListOptions
 	PinFilter     ListPinsFilter    `url:"pin_filter,omitempty"`
 	PinType       ListPinsType      `url:"pin_type,omitempty"`
 	CreativeTypes []PinCreativeType `url:"pin_type,omitempty"`
