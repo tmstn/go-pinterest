@@ -273,7 +273,7 @@ type getPinOpts struct {
 
 // ListPins Get a list of the Pins owned by the "operation user_account".
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/pins/list
-func (r *BoardResource) ListPins(args ListPinsOptions) (*PinsResponse, *APIError) {
+func (r *PinResource) ListPins(args ListPinsOptions) (*PinsResponse, *APIError) {
 	path := "/pins"
 
 	resp := new(PinsResponse)
