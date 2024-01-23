@@ -33,16 +33,20 @@ func (b BoardOwner) String() string {
 
 type BoardPrivacy string
 
+func (b BoardPrivacy) All() bool {
+	return b == AllBoards
+}
+
 func (b BoardPrivacy) Public() bool {
-	return b == PublicBoard
+	return b == PublicBoards
 }
 
 func (b BoardPrivacy) Protected() bool {
-	return b == ProtectedBoard
+	return b == ProtectedBoards
 }
 
 func (b BoardPrivacy) Secret() bool {
-	return b == SecretBoard
+	return b == SecretBoards
 }
 
 func (b BoardPrivacy) String() string {
@@ -50,9 +54,10 @@ func (b BoardPrivacy) String() string {
 }
 
 const (
-	PublicBoard    BoardPrivacy = "PUBLIC"
-	ProtectedBoard BoardPrivacy = "PROTECTED"
-	SecretBoard    BoardPrivacy = "SECRET"
+	AllBoards       BoardPrivacy = "ALL"
+	PublicBoards    BoardPrivacy = "PUBLIC"
+	ProtectedBoards BoardPrivacy = "PROTECTED"
+	SecretBoards    BoardPrivacy = "SECRET"
 )
 
 // Board represents the board info
