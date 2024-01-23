@@ -135,12 +135,13 @@ const (
 	HasBeenPromoted ListPinsFilter = "has_been_promoted"
 )
 
-// ListPinsOptions specifies the optional parameters to the List Pins method
-type ListPinsOptions struct {
+// ListPinsOpts specifies the optional parameters to the List Pins method
+type ListPinsOpts struct {
 	ListOptions
-	PinFilter     ListPinsFilter    `url:"pin_filter,omitempty"`
-	PinType       ListPinsType      `url:"pin_type,omitempty"`
-	CreativeTypes []PinCreativeType `url:"pin_type,omitempty"`
+	PinFilter            ListPinsFilter    `url:"pin_filter,omitempty"`
+	IncludeProtectedPins bool              `url:"include_protected_pins"`
+	PinType              ListPinsType      `url:"pin_type,omitempty"`
+	CreativeTypes        []PinCreativeType `url:"pin_type,omitempty"`
 }
 
 // PinMediaSourceType represents the source type of pin media
@@ -272,7 +273,7 @@ type getPinOpts struct {
 
 // ListPins Get a list of the Pins owned by the "operation user_account".
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/pins/list
-func (r *PinResource) ListPins(args ListPinsOptions) (*PinsResponse, *APIError) {
+func (r *PinResource) ListPins(args ListPinsOpts) (*PinsResponse, *APIError) {
 	path := "/pins"
 
 	resp := new(PinsResponse)
