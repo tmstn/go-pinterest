@@ -12,8 +12,8 @@ func newBoardResource(cli *Client) *BoardResource {
 
 // BoardMedia represents the media for board
 type BoardMedia struct {
-	ImageCoverURL    *string `json:"image_cover_url"`
-	PinThumbnailURLs *string `json:"pin_thumbnail_urls"`
+	ImageCoverURL    *string   `json:"image_cover_url"`
+	PinThumbnailURLs *[]string `json:"pin_thumbnail_urls"`
 }
 
 func (b BoardMedia) String() string {
