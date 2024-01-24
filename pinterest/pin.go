@@ -141,7 +141,7 @@ type ListPinsOpts struct {
 	PinFilter            ListPinsFilter    `url:"pin_filter,omitempty"`
 	IncludeProtectedPins bool              `url:"include_protected_pins"`
 	PinType              ListPinsType      `url:"pin_type,omitempty"`
-	CreativeTypes        []PinCreativeType `url:"pin_type,omitempty"`
+	CreativeTypes        []PinCreativeType `url:"creative_types,omitempty"`
 }
 
 // PinMediaSourceType represents the source type of pin media
