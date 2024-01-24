@@ -77,7 +77,7 @@ func (s SearchResponse) String() string {
 // SearchPins Get the top n Pins by a given search term.
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/search_partner_pins
 func (r *SearchResource) SearchPartnerPins(args SearchOpts) (*SearchResponse, *APIError) {
-	path := "/search/pins"
+	path := "/search/partner/pins"
 
 	resp := new(SearchResponse)
 	err := r.Cli.DoGet(path, args, resp)
