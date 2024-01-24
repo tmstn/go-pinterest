@@ -1,7 +1,5 @@
 package pinterest
 
-import "time"
-
 /*
 	Boards API
 */
@@ -64,8 +62,8 @@ const (
 // Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards/get
 type Board struct {
 	ID                  *string      `json:"id"`
-	CreatedAt           *time.Time   `json:"created_at"`
-	BoardPinsModifiedAt *time.Time   `json:"board_pins_modified_at"`
+	CreatedAt           *string      `json:"created_at"`
+	BoardPinsModifiedAt *string      `json:"board_pins_modified_at"`
 	Name                *string      `json:"name"`
 	Description         *string      `json:"description"`
 	CollaboratorCount   *int         `json:"collaborator_count"`
