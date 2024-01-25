@@ -48,3 +48,22 @@ func (r *UserAccountResource) GetUserAccount(adAccountID string) (*UserAccount, 
 	}
 	return resp, nil
 }
+
+// ListFollowingBoardOpts represents the parameters for list following boards method
+type ListFollowingBoardOpts struct {
+	ListOptions
+	ExplicitlyFollowing bool `url:"explicit_following"`
+}
+
+// ListFollowingBoards Get a list of the boards a user follows. The request returns a board summary object array.
+// Refer: https://developers.pinterest.com/docs/api/v5/#operation/boards_user_follows/list
+func (r *UserAccountResource) ListFollowingBoards(args ListFollowingBoardOpts) (*BoardsResponse, *APIError) {
+	path := "/user_account/following/boards"
+
+	resp := new(BoardsResponse)
+	err := r.Cli.DoGet(path, args, resp)
+	if err != nil {
+		return nil, err
+	}
+	return resp, nil
+}
